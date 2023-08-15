@@ -17,6 +17,7 @@ app.use(express.urlencoded({extended:false})); // to read form data
 app.use(express.json()) // to read JSON Data
 app.use(cookieParser());
 
+app.get('/', (req, res) => {res.send('Welcome to ConnectX Server')})
 app.use('/signup', require('./routes/register'))
 app.use('/login', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));
@@ -33,4 +34,4 @@ app.all('*', (req, res) => {
 mongoose.connection.once(('open'), ()=> {
     console.log('Connected to MongoDB')
 })
-app.listen(PORT,     ()=> {console.log('Server running on PORT 3500')});
+app.listen(PORT, ()=> {console.log('Server running on PORT 3500')});
