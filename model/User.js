@@ -18,6 +18,10 @@ const userSchema = new Schema({
         type:String,
         require: true
     },
+    imageBase: {
+        type: String, 
+        require: true
+    },
     refreshToken: String,
     
     chats: Array

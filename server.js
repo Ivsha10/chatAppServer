@@ -10,6 +10,8 @@ const connectDB = require('./config/dbConn');
 const credentials = require('./middleware/credentials');
 const verifyJWT = require('./middleware/verifyJWT');
 
+
+
 connectDB();
 
 app.use(cors(corsOptions))
@@ -19,6 +21,7 @@ app.use(cookieParser());
 
 app.get('/', (req, res) => {res.send('Welcome to ConnectX Server')})
 app.use('/signup', require('./routes/register'))
+ 
 app.use('/login', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'));
