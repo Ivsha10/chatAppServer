@@ -9,21 +9,34 @@ const mongoose = require('mongoose');
 const connectDB = require('./config/dbConn');
 const credentials = require('./middleware/credentials');
 const verifyJWT = require('./middleware/verifyJWT');
+const multer = require('multer');
 
+var storage = multer.diskStorage({
+    destination: function (request, file, callback) {
+        callback(null, './uploads/');
+    },
+    filename: function (request, file, callback) {
+        console.log(file);
+        callback(null, file.originalname)
+    }
+});
 
+var upload = multer({ dest: 'images/' });
 
 connectDB();
 
 app.use(cors(corsOptions))
-app.use(express.urlencoded({extended:false})); // to read form data
+app.use('/images', express.static('images'));
+app.use(express.urlencoded({extended:true})); // to read form data
 app.use(express.json()) // to read JSON Data
 app.use(cookieParser());
 
+
+
 app.get('/', (req, res) => {res.send('Welcome to ConnectX Server')})
-app.use('/signup', require('./routes/register'))
- 
+
+app.use('/signup', upload.single('image'), require('./routes/register') )
 app.use('/login', require('./routes/auth'));
-app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'));
 
 app.use(verifyJWT);
