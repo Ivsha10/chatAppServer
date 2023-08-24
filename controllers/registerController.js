@@ -13,7 +13,8 @@ const handleNewUser = async function(req, res) {
         'pwd': await bcrypt.hash(pwd, 10),
         'fullName': fullName,
         'phoneNumber': phoneNumber,
-        'imageBase':imageName
+        'imageBase':imageName,
+        'loggedIn': false
     });
     console.log(result);
     return res.status(200).json({message: `User ${username} successfuly registered!`})

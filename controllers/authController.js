@@ -24,6 +24,7 @@ const handleLogin =  async function(req, res) {
             {expiresIn:'1d'});
             
         foundUser.refreshToken = refreshToken;
+        foundUser.loggedIn = true;
         const result = foundUser.save();
         res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
         res.json({"accessToken": accessToken, 'message':'Signed In Sucessfully', 'user':foundUser.username});

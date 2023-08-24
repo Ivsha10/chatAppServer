@@ -22,9 +22,10 @@ const userSchema = new Schema({
         type: String, 
         require: true
     },
-    refreshToken: String,
-    
-    chats: Array
+    loggedIn: {
+        type: Boolean   
+     }, 
+    refreshToken: String
 })
 
 const User = mongoose.model('User', userSchema);
